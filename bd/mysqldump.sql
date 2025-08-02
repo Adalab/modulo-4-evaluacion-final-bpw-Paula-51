@@ -137,3 +137,33 @@ UNLOCK TABLES;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
 -- Dump completed on 2025-07-30 21:25:32
+/* rellenar tablas desde MySQL Workbench - PERSONAJES */
+INSERT INTO `Springfield`.`personajes` (`id`, `nombre`, `apellido`, `ocupación`, `descripcion`) VALUES ('2', 'Homer', 'Simpson', 'Central Nuclear', 'Padre de familia, típico americano. Tauro');
+INSERT INTO `Springfield`.`personajes` (`id`, `nombre`, `apellido`, `ocupación`, `descripcion`) VALUES ('3', 'Montgomery', 'Burns', 'CEO de la central nuclear', 'El habitante más mayor de Springfield');
+INSERT INTO `Springfield`.`personajes` (`id`, `nombre`, `apellido`, `ocupación`, `descripcion`) VALUES ('4', 'Edna', 'Krabbapel', 'Profesora de primaria', 'Alcohólica deprimida enamorada del director');
+INSERT INTO `Springfield`.`personajes` (`id`, `nombre`, `apellido`, `ocupación`, `descripcion`) VALUES ('5', 'Nelson', 'Munch', 'Abusón', 'Bully principal del colegio de primaria');
+INSERT INTO `Springfield`.`personajes` (`id`, `nombre`, `apellido`, `ocupación`, `descripcion`) VALUES ('6', 'Milhouse', 'Van Houten', 'Nerd', 'Pequeño traumatizado por sus problemas familiares');
+
+/*frases*/
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('2', 'Oh', 'expresión típica cuando comete un error', '2');
+UPDATE `Springfield`.`frases` SET `descripcion` = 'frase insultante' WHERE (`id` = '1') and (`personajes_id` = '1');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('3', 'Yo no he sido', 'Frase estrella del salto a la fama de Bart', '1');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('4', 'Todo ha salido a pedir de Milhouse', 'La única vez que le sale algo bien ', '6');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('5', 'Excelente', 'Expresión favorita del Sr Burns', '3');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('6', 'JÁ!', 'Risa irónica de la profesora ', '4');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('7', 'Papá, puedes verme?', 'Oración que le canta nelson a su padre por las noches para comunicarse con él', '5');
+INSERT INTO `Springfield`.`frases` (`id`, `texto`, `descripcion`, `personajes_id`) VALUES ('8', 'En esta casa seguimos las leyes de la termodinámica', 'Final de una discusión en pareja que tienen Homer y marge en la cama ', '2');
+
+
+INSERT INTO `Springfield`.`capitulos` (`id`, `titulo`, `numero_episodio`, `temporada`, `fecha_emision`, `sinopsis`) 
+VALUES 
+(1, 'Bart el genio', 2, 1, '1990-01-14', 'Bart cambia su examen con el de Martin y es enviado a una escuela para superdotados.'),
+(2, 'Homer el Hereje', 3, 4, '1992-10-08', 'Homer decide dejar de ir a la iglesia y empieza a disfrutar de los domingos a su manera.'),
+(3, '¿Dónde está el alma de Bart?', 4, 7, '1995-10-29', 'Bart vende su alma a Milhouse por cinco dólares y luego se arrepiente.'),
+(4, 'La última tentación de Homer', 9, 5, '1993-12-09', 'Homer se siente atraído por una nueva compañera de trabajo llamada Mindy.'),
+(5, 'El enemigo de Homer', 23, 8, '1997-05-04', 'Homer conoce a Frank Grimes, quien detesta su actitud irresponsable.'),
+(6, 'El abuelo y la inefable historia de la abuela Simpson', 20, 6, '1995-04-30', 'Abraham revela la historia secreta de la madre de Homer, Mona Simpson.'),
+(7, 'El saxo de Lisa', 3, 9, '1997-10-19', 'Se cuenta cómo Lisa consiguió su saxofón en un momento difícil para la familia.'),
+(8, 'Marge contra el monorraíl', 12, 4, '1993-01-14', 'Springfield compra un monorraíl que resulta ser una estafa.'),
+(9, 'Lisa la vegetariana', 5, 7, '1995-10-15', 'Lisa decide dejar de comer carne tras visitar una granja.'),
+(10, 'Quién mató al Sr. Burns (Parte 1)', 25, 6, '1995-05-21', 'El Sr. Burns decide robar el sol a Springfield y luego recibe un disparo misterioso.');

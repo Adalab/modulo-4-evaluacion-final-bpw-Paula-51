@@ -31,42 +31,48 @@ const getConnection = async () => {
     })
     return connection;
 }
-/*
-# generar y verificar token con jwt
-JWT_SECRET_KEY= */
-
-
-
 
 //ENDPOINTS (get, post, put, delete)
-server.post("/frases", async (req, res) => {
-    console.log("POST /frases " + JSON.stringify(req.body.params.texto)); //1º peticion
 
-    let texto = req.body.params.texto; 
-    let personaje_id = req.body.params.personaje_id; 
-    let query = "INSERT INTO frases (texto, personajes_id) VALUES (?,?)"; 
 
-    const connection = await getConnection(); //1º iniciar conexion
+//Obtener todas las frases de los personajes
+server.get('/frases', async (req, res) => {
+    try {
+      const connection = await getConnection();
+      const [rows] = await connection.query('SELECT texto, nombre, apellido FROM frases JOIN personajes ON frases.personajes_id = personajes.id');
+      await connection.end();
+  
+      res.json({
+        info: { count: rows.length },
+        results: rows
+      });
+    } catch (error) {
+      res.status(500).json({ error: 'Error al listar las frases' });
+    }
+  });
 
-    
-    connection.query(query, [texto, personaje_id])
-        .then(([rows]) => {
-            connection.end(); //3º finalizar conexion
-            return res.json(rows); //4º respuesta
-        })
-        .catch((error) => {
-            connection.end(); //3º finalizar conexion
-            return res.status(500).json({ error:error.message }); //4º respuesta
-        });
-       
-    // 1º iniciar conexion
-    // 2º query (probar en mysql workbench para ver si la query devuelve lo que necesitas)
-    // 3º finalizar conexion
-    // 4º respuesta
 
-    //probar endpoint: todos se pueden probar en postman, pero el tipo get es el unico que tambien se puede probar en navegador
- 
-})
+  //Obtenr una frase específica por ID
+  server.get('/frases/:id', async (req, res) => {
+    const { id } = req.params;
+    try {
+      const connection = await getConnection();
+      const [rows] = await connection.query(
+        "SELECT frases.texto, personajes.nombre, personajes.apellido FROM frases JOIN personajes ON frases.personajes_id = personajes.id WHERE frases.id = ?",
+        [id]
+      );
+      await connection.end();
+      if (rows.length === 0) {
+        return res.status(404).json({ error: 'Frase no encontrada' });
+      }
+      res.json(rows[0]);
+    } catch (error) {
+      console.error(error); // Esto ayuda a depurar
+      res.status(500).json({ error: 'Error interno del servidor' });
+    }
+  });
+
+
 
 
 
