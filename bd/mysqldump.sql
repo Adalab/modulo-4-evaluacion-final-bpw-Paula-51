@@ -58,7 +58,6 @@ CREATE TABLE `frases` (
   `personajes_id` int NOT NULL,
   PRIMARY KEY (`id`,`personajes_id`),
   KEY `fk_frases_personajes_idx` (`personajes_id`),
-  CONSTRAINT `fk_frases_personaje` FOREIGN KEY (`personajes_id`) REFERENCES `personajes` (`id`),
   CONSTRAINT `fk_frases_personajes` FOREIGN KEY (`personajes_id`) REFERENCES `personajes` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;

@@ -20,7 +20,7 @@ server.listen(port, () => {
     console.log(`Servidor escuchando por http://localhost:${port}`);
 })
 
-//conexión con la BD (MySQL) es ASÍNCRONA (async/await). aqui es donde incluimos las variables de entorno
+//conexión con la BD (MySQL) es ASÍNCRONA (async/await)
 const getConnection = async () => {
     const connection = await mysql.createConnection({
         host: process.env.DB_HOST,
@@ -32,7 +32,7 @@ const getConnection = async () => {
     return connection;
 }
 
-//ENDPOINTS (get, post, put, delete)
+//ENDPOINTS
 
 //Post /frases - insertar una nueva frase
 server.post('/frases', async (req, res) => {
@@ -142,26 +142,26 @@ server.delete('/frases/:id', async (req, res) => {
     }
   });
 
-  //Get/frases/:personaje/:id Obtener frases de un personaje específico
-server.get('/frases/:personaje/:id', async (req, res) => {
-    const { personaje, id } = req.params;
-  
-    try {
-      const connection = await getConnection();
-      const [rows] = await connection.query(
-        'SELECT texto FROM frases WHERE personajes_id = ? AND personajes_id = ?',
-        [personaje, id]
-      );
-      await connection.end();
-  
-      if (rows.length === 0) {
-        return res.status(404).json({ error: 'No se encontraron frases para este personaje' });
-      }
-  
-      res.json(rows);
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ error: 'Error al obtener las frases del personaje' });
-    }
-  });
+  //Get/frases/personaje/:personaje_id Obtener frases de un personaje específico
+server.get('/frases/personaje/:personaje_id', async (req, res) => {
+    const { personaje_id } = req.params;
 
+    try {
+        const connection = await getConnection();
+        const [rows] = await connection.query(
+            'SELECT frases.texto FROM frases WHERE personajes_id = ?',
+            [personaje_id]
+        );
+        await connection.end();
+
+        if (rows.length === 0) {
+            return res.status(404).json({ error: 'No se encontraron frases para este personaje' });
+        }
+
+        res.json(rows);
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ error: 'Error al obtener las frases del personaje' });
+    }
+
+});
