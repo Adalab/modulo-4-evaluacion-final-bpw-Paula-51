@@ -81,7 +81,7 @@ npm install
 
 npm start
 
-5. Visita http://localhost:3000/personajes o http://localhost:3000/frases.
+5. Visita http://localhost:4000/personajes o http://localhost:4000/frases.
 
 ✍️ Autora
 Paula
